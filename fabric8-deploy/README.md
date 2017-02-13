@@ -22,22 +22,20 @@ apt install kubelet kubeadm kubectl kubernetes-cni -y
 source <(kubectl completion bash)
 kubeadm init --pod-network-cidr 10.244.0.0/16
 
+curl -OL https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl create -f kube-flannel.yml
+
+touch /root/K8_MASTER
+
 curl -OL https://github.com/fabric8io/gofabric8/releases/download/v0.4.115/gofabric8-linux-amd64
 chmod +x gofabric8-linux-amd64
 ln gofabric8-linux-amd64 /usr/local/bin/gofabric8
 
 kubectl get pods --all-namespaces
 
-curl -OL https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-kubectl create -f kube-flannel.yml
-
-kubectl get pods --all-namespaces
-
 gofabric8 deploy --domain fabric8.coderobin.com -y --open-console false
 gofabric8 volumes
 gofabric8 validate
-
-touch K8_MASTER
 ```
 
 ### Steps for k8s worker node

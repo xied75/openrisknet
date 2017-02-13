@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir /root/f8; cd /root/f8;
 
 apt update; apt upgrade -y; apt install apt-transport-https jq -y;
 
@@ -8,12 +9,9 @@ deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
 apt update
-apt install docker.io -y
+apt install docker.io kubelet kubeadm kubectl kubernetes-cni -y
 
-mkdir /root/f8; cd /root/f8;
-
-apt install kubelet kubeadm kubectl kubernetes-cni -y
-
+source <(kubectl completion bash)
 echo "" >> /root/.bashrc
 echo 'source <(kubectl completion bash)' >> /root/.bashrc
 
@@ -29,9 +27,9 @@ chmod +x gofabric8-linux-amd64
 ln gofabric8-linux-amd64 /usr/local/bin/gofabric8
 
 if [ -z $F8_DOMAINNAME ]; then
-  gofabric8 deploy -y --open-console false;
+  gofabric8 deploy -y --open-console=false;
 else
-  gofabric8 deploy --domain $F8_DOMAINNAME -y --open-console false;
+  gofabric8 deploy --domain $F8_DOMAINNAME -y --open-console=false;
 fi
 
 gofabric8 volumes

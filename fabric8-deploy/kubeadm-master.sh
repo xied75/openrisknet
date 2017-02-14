@@ -11,6 +11,17 @@ EOF
 apt update
 apt install docker.io kubelet kubeadm kubectl kubernetes-cni -y
 
+# dockerd config to enable push to fabric8 registry
+cat <<EOF > /etc/docker/daemon.json
+{
+    "insecure-registries": [
+        "10.96.0.0/12"
+    ]
+}
+EOF
+systemctl restart docker.service
+
+# enable kubectl auto-completion
 source <(kubectl completion bash)
 echo "" >> /root/.bashrc
 echo 'source <(kubectl completion bash)' >> /root/.bashrc

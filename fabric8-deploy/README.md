@@ -76,6 +76,7 @@ The ip address is your eth0 ip.
 
 ### Config dockerd to allow insecure repository
 
+Use this to find out the service IP for registry service:
 ```
 kubectl get svc fabric8-docker-registry --output template --template={{.spec.clusterIP}}
 ```
@@ -101,7 +102,7 @@ Note: this will trigger all pods on current node quit and start afresh. If you d
     ]
 }
 ```
-And run this plus the ```systemctl``` immediately after you've installed docker.
+And run this plus the ```systemctl``` immediately after you've installed docker. No need to replace the IP cidr here.
 
 ### References
 

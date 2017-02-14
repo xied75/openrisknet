@@ -1,5 +1,6 @@
 #!/bin/bash
-mkdir /root/f8; cd /root/f8;
+
+mkdir -p /root/f8; cd /root/f8;
 
 apt update; apt upgrade -y; apt install apt-transport-https jq -y;
 
